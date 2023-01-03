@@ -1,0 +1,36 @@
+# - ALIAS -
+#alias ls  = "exa"
+alias nv  = "nvim"
+alias py3 = "python3"
+
+# - PS1 -
+# Colors
+BLANK='\[\e[0m\]'
+GREEN='\[\e[1;32m\]'
+WHITE='\[\033[m\]'
+MAGENTA='\[\033[1;35m\]'
+BLUE='\[\e[1;34m\]'
+RED='\[\e[1;31m\]'
+GRAY='\[\e[1;30m\]'
+
+# Complements
+TIME="${MAGENTA}\t"
+USER=""
+HOSTNAME=""
+
+PS1="${GRAY}┌─${TIME}${GRAY}─${RED}\u@${BLUE}\H \n${GRAY}└─${GREEN}[\w]> ${BLANK}"
+
+
+
+# Terminal Banner
+cat << EOF
+ ____________________ 
+< Wow a new terminal >
+ -------------------- 
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\ 
+                ||----w |
+                ||     ||
+
+EOF

@@ -1,0 +1,26 @@
+# I like nano ok?
+
+# Include syntax highlighting
+include /usr/share/nano/*.nanorc
+
+## Paint the interface elements of nano.
+## These are examples; by default there are no colors.
+set titlecolor black,green
+set statuscolor black,yellow # Above commands
+
+set selectedcolor brightwhite,magenta
+set numbercolor yellow
+set keycolor cyan
+set functioncolor white
+
+# Some other stuff
+# set constantshow # Alt+C
+# set casesensitive
+set linenumbers
+set autoindent
+set backup # Create backup files in "filename~"
+set backupdir ~/.nanob
+#set quickblank # Statusbar messages will disapper after 1 keystroke (default is 25)
+#set mouse # Mouse support
+#set nohelp
+#set wordbounds # Detect word boundaries more accurately by treating punctuations  characters as parts of words
