@@ -1,0 +1,187 @@
+#!/bin/bash
+# Creates a file template for C, C++, Raylib, OpenGl and SFMl
+
+HEIGHT=15
+WIDTH=40
+CHOICE_HEIGHT=4
+TITLE="Template Files"
+MENU="Choose one of the following options:"
+
+OPTIONS=(
+	1 "C"
+	2 "C++"
+	3 "Raylib"
+	4 "OpenGL"
+	5 "SFML"
+)
+
+
+function cTemplate() {
+	echo "#include <stdio.h>
+
+int main() {
+	printf(\"Hello World!\");
+}" > ctemp.c
+}
+
+function cppTemplate() {
+	echo "#include <iostream>
+
+int main() {
+	std::cout << \"Hello World!\"  << std::endl;
+}" > cpptemp.cpp
+}
+
+function raylibTemplate() {
+	echo "#include \"raylib.h\"
+
+int main()
+{
+	InitWindow(800, 450, \"raylib [core] example - basic window\");
+	while (!WindowShouldClose())
+	{
+		BeginDrawing();
+			ClearBackground(RAYWHITE);
+			DrawText(\"Congrats! You created your first window!\", 190, 200, 20, LIGHTGRAY);
+		EndDrawing();
+	}
+	CloseWindow();
+}" > raylib.c
+}
+
+function openglTemplate() {
+	echo "#include <stdio.h>
+#include <GL/glut.h>
+#include <math.h>
+
+#define pi 3.142857
+ 
+void display(void) 
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	glBegin(GL_POINTS);
+	float x, y, i;
+
+	// Iterate y up to 2*pi, i.e., 360 degree
+	// With small increment in angle as
+	// glVertex2i just draws a point on specified co-ordinate
+	for(i=0; i<(2*pi); i+=0.001) {
+		// Let 200 is radius of circle and as,
+		// Circle is defined as x=r*cos(i) and y=r*sin(i)
+		x = 200 * cos(i);
+		y = 200 * sin(i);
+
+		glVertex2i(x, y);
+	}
+	glEnd();
+	glFlush();
+}
+
+
+// Function to initialize
+void init(void)
+{
+	// Making background color black as first
+	// 3 arguments all are 0.0
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+
+	// Making picture color green (in RGB mode), as middle argument is 1.0
+	glColor3f(0.0, 1.0, 0.0);
+
+	// Breadth of picture boundary is 1 pixel
+	glPointSize(1.0);
+	glMatrixMode(GL_PROJECTION); 
+	glLoadIdentity();
+
+	// Setting window dimension in X- and Y- direction
+	gluOrtho2D(-780, 780, -420, 420);
+}
+
+
+int main(int argc, char** argv) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+
+	// Giving window size in X- and Y- direction
+	glutInitWindowSize(1024, 512);
+	glutInitWindowPosition(0, 0);
+
+	// Giving name to window
+	glutCreateWindow(\"Circle Drawing\");
+	init();
+
+	glutDisplayFunc(display);
+	glutMainLoop();
+}" > opengl.c
+}
+
+function sfmlTemplate() {
+	echo "#include <SFML/Graphics.hpp>
+
+int main()
+{
+	sf::RenderWindow window(sf::VideoMode(800, 600), \"SFML works!\");
+	window.setFramerateLimit(60);
+
+	sf::CircleShape shape(100.f);
+	shape.setFillColor(sf::Color::Green);
+
+	while(window.isOpen())
+	{
+		// To not list keys when window don't has focus
+		if(!window.hasFocus())
+			continue;
+
+		sf::Event event;
+		while(window.pollEvent(event))
+		{
+			if(event.type == sf::Event::Closed)
+				window.close();
+
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) // Close window with ESC
+				window.close();
+		}
+
+		window.clear();
+			window.draw(shape);
+		window.display();
+	}
+}" > sfml.cpp
+}
+
+
+if ! command -v dialog;
+	then echo "Dialog not found";
+fi
+
+CHOICE=$(dialog --clear \
+		--title "$TITLE" \
+		--menu "$MENU" \
+		$HEIGHT $WIDTH $CHOICE_HEIGHT \
+		"${OPTIONS[@]}" \
+		2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+	1)
+		cTemplate
+		;;
+
+	2)
+		cppTemplate
+		;;
+
+	3)
+		raylibTemplate
+		;;
+
+	4)
+		openglTemplate
+		;;
+	5)
+		sfmlTemplate
+		;;
+esac
+
+
+echo "Done! :)"

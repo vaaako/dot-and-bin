@@ -1,0 +1,4 @@
+# Auto run for C files
+gcc $1
+./a.out
+

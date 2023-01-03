@@ -1,0 +1,15 @@
+# FRR - Forever remove
+
+if [ $# -eq 0 ]; then
+	echo "No arguments provided"
+	exit 1
+fi
+
+shred -n 20 -zv $@ # Encrypt
+
+
+read -p "Remove file? (Y/n): " YN
+case $YN in
+	[Nn]* ) exit;;
+	* ) rm -fr $@;
+esac

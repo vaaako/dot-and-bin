@@ -1,0 +1,3 @@
+# In case I need to change OpenGl version to run something with wine
+export MESA_GL_VERSION_OVERRIDE=4.5
+wine $1

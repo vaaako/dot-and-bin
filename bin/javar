@@ -1,0 +1,6 @@
+javac $1
+
+ARG=$1 # Save to var
+IN=(${ARG//./ }) # To array
+
+java ${IN[0]} # Run with file name

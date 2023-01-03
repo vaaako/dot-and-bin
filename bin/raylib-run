@@ -1,0 +1,11 @@
+# Auto run for Raylib files
+
+if [ $# -eq 0 ]; then
+	echo "Error: No file name entered"
+	exit
+fi
+
+export MESA_GLSL_VERSION_OVERRIDE=330
+export MESA_GL_VERSION_OVERRIDE=3.3
+cc $1 -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+./a.out
